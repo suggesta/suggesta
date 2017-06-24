@@ -1,0 +1,29 @@
+package main
+
+import (
+	"log"
+	"os"
+
+	"github.com/go-shosa/shosa/server"
+)
+
+func main() {
+	// If panic is happen, run this function.
+	defer func() {
+		err := recover()
+		if err != nil {
+			log.Printf("Recover!:%v", err)
+		}
+	}()
+
+	url := os.Getenv("API_URL")
+	if url == "" {
+		log.Fatal("Not set environment variable API_URL.")
+	}
+
+	// Get PID.
+	log.Printf("start pid %d", os.Getpid())
+
+	// Server runs
+	server.Run(url, Routes)
+}

@@ -1,0 +1,8 @@
+package: github.com/suggesta/suggesta/apis
+import:
+  - package: github.com/kyokomi/slackbot
+    subpackage: plugins/echo
+  - package: github.com/labstack/echo
+    version: "3.0.3"
+  - package: github.com/go-shosa/shosa
+  - package: github.com/parnurzeal/gorequest
