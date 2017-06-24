@@ -1,0 +1,15 @@
+package: github.com/go-shosa/shosa
+import:
+- package: github.com/labstack/echo
+  version: 3.0.3
+- package: github.com/labstack/gommon
+  subpackages:
+  - color
+- package: github.com/mattn/go-colorable
+- package: github.com/mattn/go-isatty
+- package: github.com/pborman/uuid
+- package: github.com/valyala/fasttemplate
+testImport:
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert

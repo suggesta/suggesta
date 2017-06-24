@@ -1,0 +1,58 @@
+hash: 52ffa0cde64ba4dbe805480940de96b3799e3fee1cc1fb49b1616191aa3529a6
+updated: 2017-06-24T22:47:00.806164669+09:00
+imports:
+- name: github.com/dgrijalva/jwt-go
+  version: a539ee1a749a2b895533f979515ac7e6e0f5b650
+- name: github.com/go-shosa/shosa
+  version: 23b95e8349c599b583133a3a16af0e2bed19a63c
+  subpackages:
+  - log
+  - middleware
+  - response
+  - router
+  - server
+- name: github.com/kyokomi/slackbot
+  version: 1e2d94b45fe1bd295dccf657fc312faa9b5511ee
+- name: github.com/labstack/echo
+  version: 8d504c1b699c757b267255c53b3e5219f9974abc
+  subpackages:
+  - middleware
+- name: github.com/labstack/gommon
+  version: 1121fd3e243c202482226a7afe4dcd07ffc4139a
+  subpackages:
+  - bytes
+  - color
+  - log
+  - random
+- name: github.com/mattn/go-colorable
+  version: 941b50ebc6efddf4c41c8e4537a5f68a4e686b24
+- name: github.com/mattn/go-isatty
+  version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
+- name: github.com/moul/http2curl
+  version: 4e24498b31dba4683efb9d35c1c8a91e2eda28c8
+- name: github.com/parnurzeal/gorequest
+  version: 5bf13be198787abbed057fb7c4007f372083a0f5
+- name: github.com/pborman/uuid
+  version: e790cca94e6cc75c7064b1332e63811d4aae1a53
+- name: github.com/pkg/errors
+  version: c605e284fe17294bda444b34710735b29d1a9d90
+- name: github.com/tylerb/graceful
+  version: d72b0151351a13d0421b763b88f791469c4f5dc7
+- name: github.com/valyala/bytebufferpool
+  version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
+- name: github.com/valyala/fasttemplate
+  version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
+- name: golang.org/x/crypto
+  version: adbae1b6b6fb4b02448a0fc0dbbc9ba2b95b294d
+  subpackages:
+  - acme
+  - acme/autocert
+- name: golang.org/x/net
+  version: 5f8847ae0d0e90b6a9dc8148e7ad616874625171
+  subpackages:
+  - publicsuffix
+- name: golang.org/x/sys
+  version: c23410a886927bab8ca5e80b08af6a56faeb330d
+  subpackages:
+  - unix
+testImports: []
