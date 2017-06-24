@@ -7,12 +7,12 @@ var (
 	Routes = []router.Route{
 		router.Route{
 			Method:  "GET",
-			Routing: "/emtion",
+			Routing: "/emotion",
 			Func:    EmotionLatest,
 		},
 		router.Route{
 			Method:  "POST",
-			Routing: "/emtion/image",
+			Routing: "/emotion/image",
 			Func:    Image,
 		},
 	}
