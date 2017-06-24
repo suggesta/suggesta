@@ -4,9 +4,9 @@ var fs = require("fs");
 
 /* GET home page. */
 router.get('/test', function(req, res, next) {
-  console.log("this is just a test.....");
-  console.log(req);
-  console.log(res);
+    console.log("this is just a test.....");
+    console.log(req);
+    console.log(res);
 });
 
 router.get('/api', function(req, res, next) {
@@ -60,6 +60,5 @@ router.post('/api_hey', function (req, res) {
         console.log("no image data...");
     }
 });
-
 
 module.exports = router;
