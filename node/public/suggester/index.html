@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <!-- common include -->
+    <script src='jquery-2.1.4.min.js'></script>
+    <!--<script src='commonHelper.js'></script>-->
+    <!-- /common include -->
+
+    <script src='cameraHelper.js'></script>
+
+    <style>
+        .kurosuke{
+            display: none;
+            position: absolute;
+            width: 100px;
+            left: 30%;
+            top: 20%;
+        }
+    </style>
+
+</head>
+<body>
+
+<article>
+
+    <div id="kuroArea">
+        <img class="kurosuke" src="img/_nico_nobot.png" style="width: 200px">
+        <img class="kurosuke" src="img/_sleepy.png" style="margin-left: 190px; margin-top: 50px;width: 200px">
+        <img class="kurosuke" src="img/_nobot.png" style="margin-left: -150px; margin-top: 150px;width: 200px">
+        <img class="kurosuke" src="img/_a.png" style="margin-left: -150px; margin-top: 300px;width: 200px">
+        <img class="kurosuke" src="img/kurosuke.png" style="margin-left: 150px; margin-top: 220px;width: 200px">
+    </div>
+
+    <section id="section-movie-player">
+        <div id="picason-msg-disp">
+            <div>
+                <p class="title split" id="mainTitle">
+                    <span style="font-size: 1.6em" id="picasoText"> </span>
+                </p>
+            </div>
+        </div>
+        <section style="margin: 15px 0;">
+            <button id="start" style="font-size: 30px;">ready</button> &nbsp;&nbsp;
+            <button id="btnDemo"  style="font-size: 30px;">Check member status</button> &nbsp;&nbsp;
+            <button id="btnStop"  style="font-size: 30px;">stop</button>
+
+        </section>
+
+        <!--<img src="img/camera.png" class="mode-img" id="mode-img-disp">-->
+
+        <video id="video" autoplay style="width: 80%"></video>
+
+        <canvas id="canvasA" style="float: none;"></canvas>
+
+
+        <!--
+            <div>
+                <img id="newImg">
+            </div>
+        -->
+
+        <!--TODO 画像認識APIに送信するデータ-->
+    </section>
+</article>
+
+</body>
+</html>
