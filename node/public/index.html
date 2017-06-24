@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <title>Hey Hack</title>
+
+</head>
+<body>
+
+<section id="section-movie-player">
+
+    <div id="msg-disp">
+        <div>
+            <p class="title split" id="mainTitle">
+                <span style="font-size: 1.6em" id="picasoText"> </span>
+            </p>
+        </div>
+    </div>
+
+    <section style="margin: 15px 0;">
+        <button id="start">カメラ起動</button>
+        <button id="stop">停止</button>
+        <button id="photo">撮影</button>
+    </section>
+
+    <video id="video" autoplay></video>
+
+    <canvas id="canvasA" style="float: none;"></canvas>
+
+    <!--
+        <div>
+            <img id="newImg">
+        </div>
+    -->
+
+    <!--TODO 画像認識APIに送信するデータ-->
+</section>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
