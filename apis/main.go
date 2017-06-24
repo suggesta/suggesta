@@ -16,9 +16,9 @@ func main() {
 		}
 	}()
 
-	url := os.Getenv("API_URL")
+	url := os.Getenv("IP") + ":" + os.Getenv("PORT")
 	if url == "" {
-		log.Fatal("Not set environment variable API_URL.")
+		log.Fatal("Not set environment variable IP and PORT.")
 	}
 
 	// Get PID.
