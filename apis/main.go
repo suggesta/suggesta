@@ -16,7 +16,8 @@ func main() {
 		}
 	}()
 
-	url := os.Getenv("IP") + ":" + os.Getenv("PORT")
+	// url := os.Getenv("IP") + ":" + os.Getenv("PORT")
+	url := ":" + os.Getenv("PORT")
 	if url == "" {
 		log.Fatal("Not set environment variable IP and PORT.")
 	}
