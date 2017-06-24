@@ -14,10 +14,6 @@ type Request struct {
 	URL string `json:"url"`
 }
 
-type ResultEmotion struct {
-	Result cognitive.ResultEmotionDetail `json:"result"`
-}
-
 type ResultScores struct {
 	Scores cognitive.Scores `json:"scores"`
 }
@@ -62,6 +58,11 @@ func Image(c echo.Context) (err error) {
 		er.ErrorInformation.DeveloperMessage = err.Error()
 		return er.JSON()
 	}
-
-	return c.JSON(http.StatusOK, ResultEmotion{Result: res.Result[0]})
+	if len(res) == 0 {
+		er = response.NewErrorResponse(c, response.InternalServerError)
+		er.ErrorInformation.DeveloperMessage = "success to access API. Can't get response"
+		return er.JSON()
+	}
+	scores := res[0].Scores
+	return c.JSON(http.StatusOK, scores)
 }

@@ -17,10 +17,6 @@ type Param struct {
 }
 
 type ResultEmotion struct {
-	Result []ResultEmotionDetail `json:"result"`
-}
-
-type ResultEmotionDetail struct {
 	FaceRectangle FaceRectangle `json:"faceRectangle"`
 	Scores        Scores        `json:"scores"`
 }
@@ -72,7 +68,7 @@ func EmotionImageBinary(f *os.File) (request interface{}, err error) {
 }
 
 // EmotionImageURL is request to cognitive emotion API
-func EmotionImageURL(url string) (result ResultEmotion, code int, err error) {
+func EmotionImageURL(url string) (result []ResultEmotion, code int, err error) {
 	// if os.Getenv("MS_SUBSCRIPTION_KEY") == "" {
 	// 	return result, 500, fmt.Errorf("access key is not set")
 	// }
