@@ -48,14 +48,15 @@ const BaseURL = "https://westus.api.cognitive.microsoft.com"
 
 // EmotionImageBinary is request to cognitive emotion API
 func EmotionImageBinary(f *os.File) (request interface{}, err error) {
-	if os.Getenv("MS_SUBSCRIPTION_KEY") == "" {
-		return nil, fmt.Errorf("access key is not set")
-	}
+	// if os.Getenv("MS_SUBSCRIPTION_KEY") == "" {
+	// 	return nil, fmt.Errorf("access key is not set")
+	// }
 
 	reqURL := BaseURL + "/emotion/v1.0/recognize"
 	req, _ := http.NewRequest("POST", reqURL, f)
 	req.Header.Set("Content-Type", "application/octet-stream")
-	req.Header.Set("Ocp-Apim-Subscription-Key", os.Getenv("MS_SUBSCRIPTION_KEY"))
+	// req.Header.Set("Ocp-Apim-Subscription-Key", os.Getenv("MS_SUBSCRIPTION_KEY"))
+	req.Header.Set("Ocp-Apim-Subscription-Key", "d1773fe0c0844d01a212a95b8807aa27")
 
 	client := new(http.Client)
 	var resp *http.Response
@@ -72,9 +73,9 @@ func EmotionImageBinary(f *os.File) (request interface{}, err error) {
 
 // EmotionImageURL is request to cognitive emotion API
 func EmotionImageURL(url string) (result ResultEmotion, code int, err error) {
-	if os.Getenv("MS_SUBSCRIPTION_KEY") == "" {
-		return result, 500, fmt.Errorf("access key is not set")
-	}
+	// if os.Getenv("MS_SUBSCRIPTION_KEY") == "" {
+	// 	return result, 500, fmt.Errorf("access key is not set")
+	// }
 
 	param := Param{
 		URL: url,
@@ -87,7 +88,8 @@ func EmotionImageURL(url string) (result ResultEmotion, code int, err error) {
 	resp, body, errs := r.Post(reqURL).
 		Send(param).
 		Set("Content-Type", "application/json").
-		Set("Ocp-Apim-Subscription-Key", os.Getenv("MS_SUBSCRIPTION_KEY")).
+		// Set("Ocp-Apim-Subscription-Key", os.Getenv("MS_SUBSCRIPTION_KEY")).
+		Set("Ocp-Apim-Subscription-Key", "d1773fe0c0844d01a212a95b8807aa27").
 		End()
 	if errs != nil {
 		return result, resp.StatusCode, errs[0]
