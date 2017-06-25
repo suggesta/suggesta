@@ -28,8 +28,20 @@ type Emotion struct {
 	CreatedAt int64   `json:"created_at"`
 }
 
+// type ResultScores struct {
+// 	Scores cognitive.Scores `json:"scores"`
+// }
+
 type ResultScores struct {
-	Scores cognitive.Scores `json:"scores"`
+	Anger     float64 `json:"anger"`
+	Contempt  float64 `json:"contempt"`
+	Disgust   float64 `json:"disguest"`
+	Fear      float64 `json:"fear"`
+	Happiness float64 `json:"happiness"`
+	Neutral   float64 `json:"neutral"`
+	Sadness   float64 `json:"sadness"`
+	Surprise  float64 `json:"surprise"`
+	Max       string  `json:"max"`
 }
 
 type ResultScoresSummary struct {
@@ -165,6 +177,34 @@ func Image(c echo.Context) (err error) {
 		Surprise:  scores.Surprise,
 		CreatedAt: time.Now().Unix(),
 	})
+
+	result := ResultScores{
+		Anger:     scores.Anger,
+		Contempt:  scores.Contempt,
+		Disgust:   scores.Disgust,
+		Fear:      scores.Fear,
+		Happiness: scores.Happiness,
+		Neutral:   scores.Neutral,
+		Sadness:   scores.Sadness,
+		Surprise:  scores.Surprise,
+	}
+
+	result.Max = "Neutral"
+	if result.Anger > result.Neutral {
+		result.Max = "Anger"
+	} else if result.Contempt > result.Neutral {
+		result.Max = "Contempt"
+	} else if result.Disgust > result.Neutral {
+		result.Max = "Disgust"
+	} else if result.Fear > result.Neutral {
+		result.Max = "Fear"
+	} else if result.Happiness > result.Neutral {
+		result.Max = "Happiness"
+	} else if result.Sadness > result.Neutral {
+		result.Max = "Sadness"
+	} else if result.Surprise > result.Neutral {
+		result.Max = "Surprise"
+	}
 
 	return c.JSON(http.StatusOK, scores)
 }
