@@ -206,7 +206,7 @@ func Image(c echo.Context) (err error) {
 		result.Max = "Surprise"
 	}
 
-	return c.JSON(http.StatusOK, scores)
+	return c.JSON(http.StatusOK, result)
 }
 
 func emotionIndex() (result []cognitive.Scores, err error) {
