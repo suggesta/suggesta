@@ -70,6 +70,32 @@ $(document).ready(function () {
                         var result = data.hack[1];
                         console.log(result);
                     }
+
+                    //TODO hack,,,
+                    var test = {
+                        "scores": {
+                            "anger": 0.00000128175566,
+                            "contempt": 7.79053551e-8,
+                            "disgust": 0.0000209642149,
+                            "fear": 9.660769e-9,
+                            "happiness": 0.9999676,
+                            "neutral": 0.000007217261,
+                            "sadness": 0.0000010599731,
+                            "surprise": 0.00000182016527
+                        }
+                    }
+                    $("#debug-text").append(JSON.stringify(test));
+
+                    setTimeout(function(){
+                        //alert($("#happyM").attr("scrollamount"));
+                        $("#happyM").attr("scrollamount", 50);
+                        $("#happy").text("Happy????");
+                        setTimeout(function(){
+                            $("#happyM").attr("scrollamount", 15);
+                        },15000)
+
+                    }, 500);
+
                 });
             });
         }

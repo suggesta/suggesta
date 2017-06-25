@@ -6,6 +6,29 @@
 </head>
 <body>
 
+<style>
+    h1{
+        font-size: 3em;
+    }
+    h2{
+        font-size: 2.5em;
+    }
+</style>
+<img src="img/logo2.png" width="10%" style="display: inline; float: left">
+<h1><span style="margin-left: 20px;"> Cognitive Office DEMO</span></h1>
+<hr>
+<div style="">
+    <!--<img src="img/fukidasi-2.png" style="width: 100px;">-->
+    <h2 style="width: 70%"><Marquee scrollamount="15" truespeed id="happyM"><span id="happy" style="color: red">Good morning Hacker!! how are you today???</span></Marquee></h2>
+</div>
+
+<div style="float: left">
+
+    <img src="img/cloudia.jpg">
+    <!--<img src="img/fukidasi-1.png" style="top:200px; left: 200px; position: absolute">-->
+
+</div>
+
 <section id="section-movie-player">
 
     <div id="msg-disp">
@@ -16,21 +39,25 @@
         </div>
     </div>
 
+    <style>
+        button{
+            font-size: 200%;
+        }
+    </style>
     <section style="margin: 15px 0;">
-        <button id="start">カメラ起動</button>
-        <button id="stop">停止</button>
-        <button id="photo">撮影</button>
+        <button id="start">Greeting</button>
+        <button id="stop" style="display: none;">停止</button>
+        <button id="photo" style="margin-left: 20px">call api</button>
     </section>
+
+    <img src="img/notbot.png" class="mode-img" id="mode-img-disp" width="30%">
 
     <video id="video" autoplay></video>
 
     <canvas id="canvasA" style="float: none;"></canvas>
 
-    <!--
-        <div>
-            <img id="newImg">
-        </div>
-    -->
+    <!--TODO -->
+    <div id="debug-text" style="font-size: 1.5em"></div>
 
     <!--TODO 画像認識APIに送信するデータ-->
 </section>
