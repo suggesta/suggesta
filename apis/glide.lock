@@ -1,5 +1,5 @@
-hash: 266d9228527f3308589abe41bad8f63352e6fc88a3e867839aa1c59abc3fc432
-updated: 2017-06-25T03:17:25.867334171+09:00
+hash: a47345e0189078ed91a4acdccfa27e8b9148322036fe4327d1fa37b1d45e1d0b
+updated: 2017-06-25T11:26:24.937840695+09:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: a539ee1a749a2b895533f979515ac7e6e0f5b650
@@ -11,10 +11,12 @@ imports:
   - response
   - router
   - server
+- name: github.com/go-sql-driver/mysql
+  version: 8fefef06da7707b5a3cda42195a6b409c9c9ab5c
 - name: github.com/jinzhu/gorm
   version: eae7f6be603af3190e032fe3c4d465ddaf6ea3d4
   subpackages:
-  - dialects/sqlite
+  - dialects/mysql
 - name: github.com/jinzhu/inflection
   version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/kyokomi/slackbot
@@ -34,8 +36,6 @@ imports:
   version: 941b50ebc6efddf4c41c8e4537a5f68a4e686b24
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
-- name: github.com/mattn/go-sqlite3
-  version: afe454f6220b3972691678af2c5579781563183f
 - name: github.com/moul/http2curl
   version: 4e24498b31dba4683efb9d35c1c8a91e2eda28c8
 - name: github.com/parnurzeal/gorequest
@@ -58,7 +58,6 @@ imports:
 - name: golang.org/x/net
   version: 5f8847ae0d0e90b6a9dc8148e7ad616874625171
   subpackages:
-  - context
   - publicsuffix
 - name: golang.org/x/sys
   version: c23410a886927bab8ca5e80b08af6a56faeb330d

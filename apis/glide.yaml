@@ -7,4 +7,4 @@ import:
   - package: github.com/go-shosa/shosa
   - package: github.com/parnurzeal/gorequest
   - package: github.com/jinzhu/gorm
-  - package: github.com/jinzhu/gorm/dialects/sqlite
+  - package: github.com/jinzhu/gorm/dialects/mysql
