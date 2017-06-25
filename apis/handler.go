@@ -7,10 +7,9 @@ import (
 	"time"
 
 	"github.com/go-shosa/shosa/response"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/labstack/echo"
 	"github.com/suggesta/suggesta/apis/cognitive"
+	"github.com/suggesta/suggesta/apis/database"
 )
 
 type Request struct {
@@ -144,9 +143,12 @@ func Image(c echo.Context) (err error) {
 	}
 	scores := res[0].Scores
 
-	db, err := gorm.Open("sqlite3", "hackathon.sqlite")
+	db, err := database.Connect()
 	if err != nil {
-		panic("failed to connect database")
+		er = response.NewErrorResponse(c, response.InternalServerError)
+		er.ErrorInformation.Message = "failed to access database"
+		er.ErrorInformation.DeveloperMessage = err.Error()
+		return er.JSON()
 	}
 	defer db.Close()
 
@@ -168,7 +170,7 @@ func Image(c echo.Context) (err error) {
 }
 
 func emotionIndex() (result []cognitive.Scores, err error) {
-	db, err := gorm.Open("sqlite3", "hackathon.sqlite")
+	db, err := database.Connect()
 	if err != nil {
 		return nil, err
 	}
