@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-shosa/shosa/response"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/labstack/echo"
 	"github.com/suggesta/suggesta/apis/cognitive"
 )
@@ -14,23 +17,99 @@ type Request struct {
 	URL string `json:"url"`
 }
 
+type Emotion struct {
+	Anger     float64 `json:"anger"`
+	Contempt  float64 `json:"contempt"`
+	Disgust   float64 `json:"disguest"`
+	Fear      float64 `json:"fear"`
+	Happiness float64 `json:"happiness"`
+	Neutral   float64 `json:"neutral"`
+	Sadness   float64 `json:"sadness"`
+	Surprise  float64 `json:"surprise"`
+	CreatedAt int64   `json:"created_at"`
+}
+
 type ResultScores struct {
 	Scores cognitive.Scores `json:"scores"`
 }
 
-func EmotionLatest(c echo.Context) (err error) {
-	res := cognitive.Scores{
-		Anger:     8.817463E-06,
-		Contempt:  0.00624216069,
-		Disgust:   0.000121028206,
-		Fear:      1.05626214E-06,
-		Happiness: 0.828075,
-		Neutral:   0.1579598,
-		Sadness:   0.00755788572,
-		Surprise:  3.428282E-05,
+type ResultScoresSummary struct {
+	Summary cognitive.Scores `json:"summary"`
+}
+
+type ResultCalendar struct {
+	Event   string `json:"event"`
+	StartAt int64  `json:"start_at"`
+	EndAt   int64  `json:"end_at"`
+}
+
+func Calendar(c echo.Context) (err error) {
+	result := ResultCalendar{
+		Event:   "外出中",
+		StartAt: 1498352400,
+		EndAt:   1498363200,
 	}
-	result := ResultScores{Scores: res}
 	return c.JSON(200, result)
+}
+
+func EmotionIndex(c echo.Context) (err error) {
+	result, err := emotionIndex()
+	if err != nil {
+		er := response.NewErrorResponse(c, response.InternalServerError)
+		er.ErrorInformation.DeveloperMessage = err.Error()
+		return er.JSON()
+	}
+	return c.JSON(200, result)
+}
+
+func EmotionSummary(c echo.Context) (err error) {
+	var er *response.ErrorResponse
+	result := cognitive.Scores{}
+	rs, err := emotionIndex()
+	if err != nil {
+		er = response.NewErrorResponse(c, response.InternalServerError)
+		er.ErrorInformation.DeveloperMessage = err.Error()
+		return er.JSON()
+	}
+	if len(rs) == 0 {
+		return c.JSON(200, ResultScoresSummary{Summary: result})
+	}
+	cnt := float64(len(rs))
+	for _, r := range rs {
+		result.Anger = result.Anger + r.Anger
+		result.Contempt = result.Contempt + r.Contempt
+		result.Disgust = result.Disgust + r.Disgust
+		result.Fear = result.Fear + r.Fear
+		result.Happiness = result.Happiness + r.Happiness
+		result.Neutral = result.Neutral + r.Neutral
+		result.Sadness = result.Sadness + r.Sadness
+		result.Surprise = result.Surprise + r.Surprise
+	}
+	if result.Anger > 0 {
+		result.Anger = result.Anger / cnt
+	}
+	if result.Contempt > 0 {
+		result.Contempt = result.Contempt / cnt
+	}
+	if result.Disgust > 0 {
+		result.Disgust = result.Disgust / cnt
+	}
+	if result.Fear > 0 {
+		result.Fear = result.Fear / cnt
+	}
+	if result.Happiness > 0 {
+		result.Happiness = result.Happiness / cnt
+	}
+	if result.Neutral > 0 {
+		result.Neutral = result.Neutral / cnt
+	}
+	if result.Sadness > 0 {
+		result.Sadness = result.Sadness / cnt
+	}
+	if result.Surprise > 0 {
+		result.Surprise = result.Surprise / cnt
+	}
+	return c.JSON(200, ResultScoresSummary{Summary: result})
 }
 
 // Image is a handler
@@ -64,5 +143,53 @@ func Image(c echo.Context) (err error) {
 		return er.JSON()
 	}
 	scores := res[0].Scores
+
+	db, err := gorm.Open("sqlite3", "hackathon.sqlite")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	db.AutoMigrate(&Emotion{})
+
+	db.Create(&Emotion{
+		Anger:     scores.Anger,
+		Contempt:  scores.Contempt,
+		Disgust:   scores.Disgust,
+		Fear:      scores.Fear,
+		Happiness: scores.Happiness,
+		Neutral:   scores.Neutral,
+		Sadness:   scores.Sadness,
+		Surprise:  scores.Surprise,
+		CreatedAt: time.Now().Unix(),
+	})
+
 	return c.JSON(http.StatusOK, scores)
+}
+
+func emotionIndex() (result []cognitive.Scores, err error) {
+	db, err := gorm.Open("sqlite3", "hackathon.sqlite")
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+	var emotions []Emotion
+	db.Order("created_at desc").Limit(5).Find(&emotions)
+
+	for _, em := range emotions {
+		result = append(result, cognitive.Scores{
+			Anger:     em.Anger,
+			Contempt:  em.Contempt,
+			Disgust:   em.Disgust,
+			Fear:      em.Fear,
+			Happiness: em.Happiness,
+			Neutral:   em.Neutral,
+			Sadness:   em.Sadness,
+			Surprise:  em.Surprise,
+		})
+	}
+	if len(result) == 0 {
+		return []cognitive.Scores{}, nil
+	}
+	return result, nil
 }
